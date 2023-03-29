@@ -153,11 +153,11 @@ class Sol_6{
     int S = 0;
     public:
         void solution(){
-            out("Nhap vao so can tinh: ");
+            out("Hay nhap so: ");
+            cout << "\n";
             in(s);
-            int n = s.size();
-            FOR(i,0,n){
-                S += s[i]-'0';
+            FOR(i,0,s.size()){
+                S += (s[i]-'0');
             }
             outl("Tong so cac chu so la: ",S);
         }
@@ -293,7 +293,23 @@ signed skromnyy(){
             outl("Doi mot chut.......");
             sleep(1);
             outl("Dang vao giao dien menu....");
-            sleep(3);
+            sleep(2);
+            outl("-           10%");
+            sleep(1);
+            outl("--          20%");
+            sleep(1);
+            outl("---         30%");
+            sleep(1);
+            outl("----        40%");sleep(1);
+            outl("-----       50%");sleep(1);
+            outl("------      60%");sleep(1);
+            outl("-------     70%");sleep(1);
+            outl("--------    80%");sleep(1);
+            outl("---------   90%");sleep(1);
+            outl("----------  100%");sleep(2);
+            outl("\n");
+            outl("Tai hoan tat!");
+            outl("\n");
             Giao_dien giaodien;
             giaodien.MN();
             do{
@@ -327,7 +343,7 @@ signed skromnyy(){
             cout << "\n";
             outl("Nhap lua chon: ");
             outl("1.Quay ve menu");
-            outl("3.Exit");
+            outl("2.Exit");
         }
         else outl("Vui long nhap lai\n");
     }
