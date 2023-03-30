@@ -88,7 +88,7 @@ class Sol_2{
 class Sol_3{
     int n;
     ld x;
-    int S;
+    ld S;
     public:
         void setup_gt(int a[]){
             a[0]=1;
@@ -103,8 +103,10 @@ class Sol_3{
             setup_gt(a);
             FOR(i,1,n+1){
                 if(i&1){
-                    S += pow(x,i)/a[i];
-                    if((i-1)/2==0) S *= -1;
+                    int tmp;
+                    if(i&1) tmp = 1;
+                    else tmp = -1;
+                    S += tmp*(ld)pow(x,i)/a[i];
                 }
             }
             outl("Gia tri cua S =",S);
@@ -268,8 +270,48 @@ class Giao_dien{
                 outl("7.Tinh tong cac chu so cua mot so");
                 outl("8.Kiem tra so Armstrong");
                 outl("9.In cac so co 3 chu so la so Armstrong");
+                outl("10.Quay lai!");
                 out("\nNhap vao lua chon cua ban: ");
                 Danhsach.MENU();
+        }
+        void Running(){
+            outl("Doi mot chut.......");
+            sleep(1);
+            outl("Dang vao giao dien ....");
+            sleep(2);
+            outl("-           10%");
+            sleep(1);
+            outl("--          20%");
+            sleep(1);
+            outl("---         30%");
+            sleep(1);
+            outl("----        40%");sleep(1);
+            outl("-----       50%");sleep(1);
+            outl("------      60%");sleep(1);
+            outl("-------     70%");sleep(1);
+            outl("--------    80%");sleep(1);
+            outl("---------   90%");sleep(1);
+            outl("----------  100%");sleep(2);
+            outl("\n");
+            outl("Tai hoan tat!");
+            outl("\n");
+            sleep(1);
+        }
+        bool back(){
+            do{
+                sleep(1);
+                outl("Lua chon:");
+                sleep(1);
+                outl("1.Quay ve menu");
+                outl("2.Exit");
+                in(t);
+                if(t==1) MN();
+                else if(t==2){
+                    out("Cam on ban da su dung phan mem nay\n");
+                    return 1;
+                } 
+                else out("Vui long nhap lai");
+            } while(t!=1||t!=2);
         }
 };
 //----------MAIN----------
@@ -290,42 +332,10 @@ signed skromnyy(){
         out("Nhap vao lua chon cua ban: ");
         in(lua_chon);
         if(lua_chon==1){
-            outl("Doi mot chut.......");
-            sleep(1);
-            outl("Dang vao giao dien menu....");
-            sleep(2);
-            outl("-           10%");
-            sleep(1);
-            outl("--          20%");
-            sleep(1);
-            outl("---         30%");
-            sleep(1);
-            outl("----        40%");sleep(1);
-            outl("-----       50%");sleep(1);
-            outl("------      60%");sleep(1);
-            outl("-------     70%");sleep(1);
-            outl("--------    80%");sleep(1);
-            outl("---------   90%");sleep(1);
-            outl("----------  100%");sleep(2);
-            outl("\n");
-            outl("Tai hoan tat!");
-            outl("\n");
             Giao_dien giaodien;
+            giaodien.Running();
             giaodien.MN();
-            do{
-                sleep(1);
-                outl("Lua chon:");
-                sleep(1);
-                outl("1.Quay ve menu");
-                outl("2.Exit");
-                in(t);
-                if(t==1) giaodien.MN();
-                else if(t==2){
-                    out("Cam on ban da su dung phan mem nay");
-                    return 0;
-                } 
-                else out("Vui long nhap lai");
-            } while(t!=1||t!=2);
+            if(giaodien.back()) return 0;
         }
         else if(lua_chon==2){
             sleep(1);
@@ -333,6 +343,8 @@ signed skromnyy(){
             return 0;
         }
         else if(lua_chon==3){
+            Giao_dien giaodien1;
+            giaodien1.Running();
             sleep(1);
             outl("Admin Information\n");
             outl("Author: Hoang Manh Khiem");
@@ -341,9 +353,7 @@ signed skromnyy(){
             outl("Education : UTC");
             sleep(1);
             cout << "\n";
-            outl("Nhap lua chon: ");
-            outl("1.Quay ve menu");
-            outl("2.Exit");
+            giaodien1.back();
         }
         else outl("Vui long nhap lai\n");
     }
