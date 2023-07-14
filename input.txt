@@ -1,13 +1,6 @@
-4
-Khiem Dep Trai
-100
-A
-Khiem Vip
-10
-B
-Hoang mannh Khienm
-900
-C
-An Beo
-100
-B
+5
+1 0 
+2 3
+3 4
+4 5
+5 6

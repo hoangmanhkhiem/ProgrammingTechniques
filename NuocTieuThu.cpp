@@ -33,6 +33,7 @@ void FileInput(GD** arr, int* n) {
         fscanf(f, "%d\n", &(*arr)[i].stt);
         fscanf(f, "%d\n", &(*arr)[i].sd);
     }
+    fclose(f);
 }
 
 void Display(GD* arr, int n) {

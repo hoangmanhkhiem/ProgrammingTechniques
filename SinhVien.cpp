@@ -29,6 +29,7 @@ void FileInput(SV** arr, int *n) {
         fscanf(f, "%f\n", &(*arr)[i].diem);
         fscanf(f, "%c\n", &(*arr)[i].dh);
     }
+    fclose(f);
 }
 
 void TinhTongDiem(SV* arr, int n) {

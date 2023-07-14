@@ -1,75 +1,99 @@
 #include <stdio.h>
-#include <string.h>
-#include <malloc.h>
+#include <stdlib.h>
 #include <math.h>
 
-typedef struct{
-    float x, y;
-}Diem;
+typedef struct {
+    double x;
+    double y;
+} Point;
 
-void DocFile(char* fileName, Diem* arr[], int *n) {
-    FILE* f = fopen(fileName, "rt");
+void DocFile(Point** arr, int* n) {
+    char fName[50];
+    printf("Nhap ten tep: ");
+    fgets(fName);
+    f* f = fopen(fName, "r");
     if (f == NULL) {
-        printf("Doc File ko thanh cong");
-        return;
+        printf("Khong the mo file.\n");
+        return NULL;
     }
-    fscanf(f, "%d\n", n);
-    *arr = (Diem*)malloc(sizeof(Diem) * (*n));
+    fscanf(f, "%d", n);
+    *arr = (Point*)malloc(*n * sizeof(Point));
     for (int i = 0; i < *n; i++) {
-        fscanf(f, "%f %f", &(*arr)[i].x,&(*arr)[i].y);
+        fscanf(f, "%lf %lf", &(*arr)[i].x, &(*arr)[i].y);
     }
-
     fclose(f);
 }
-void Display(Diem* arr, int n) {
+
+
+void display(Point *arr, int n){
+    printf("\nDanh sach toa do:\n");
     for (int i = 0; i < n; i++) {
-        printf("%.1f %.1f \t", arr[i].x, arr[i].y);
+        printf("(%lf, %lf)\n", arr[i].x, arr[i].y);
     }
 }
-
-float Distance(Diem a, Diem b) {
-    return sqrt(pow(a.x - b.x, 2) + pow(a.y - b.y, 2));
+float Distance(Point a){
+    return sqrt(pow(a.x,2)+pow(a.y,2));
 }
 
-int Check(Diem a, Diem b, Diem c){
-    float d1 = Distance(a,b);
-    float d2 = Distance(b,c);
-    float d3 = Distance(a,c);
-    if(d1*d1+d2*d2==d3*d3||d1*d1==d2*d2+d3*d3||d2*d2==d1*d1+d3*d3)
-        return 1;
-    return 0;
-}
-
-void DemDiem(Diem *arr, int n){
-    int R, count =0;
-    printf("Nhap R: ");
-    scanf("%d",&R);
-    for (int i = 0; i < n-1; ++i) {
-        for (int j = i+1; j < n; ++j) {
-            if(Distance(arr[i],arr[j])<=R) count ++;
+int TimDoanthuocTRON(Point* arr, int n) {
+    double R;
+    printf("\nNhap ban kinh duong tron: ");
+    scanf("%lf", &R);
+    int count = 0;
+    for (int i = 0; i < n; i++) {
+        for (int j = i + 1; j < n; j++) {
+            double distance = sqrt(pow(arr[j].x - arr[i].x, 2) +  pow(arr[j].y - arr[i].y, 2));
+            if (distance <= 2 * R && Distance(arr[i])<= R && Distance(arr[j])<= R) {
+                count++;
+            }
         }
     }
-    printf("So diem thuoc duong tron tam O ban kinh %d la: %d",R,count);
+    printf("\nSo doan thang nam trong duong tron: %d\n", count);
 }
 
-void TimTGVMax(Diem *arr, int n){
-    for (int i = 0; i < n-2; ++i) {
-        for (int j = i+1; j < n-1; ++j) {
-            for (int k = j+1; k < n; ++k) {
-                if(Check(arr[i],arr[j],arr[k])){
-                    int tmp1 = i, tmp2 =j, tmp3 = k;
+void TimkiemTamgiacVuong_Smax(Point* arr, int n) {
+    double maxS = 0;
+    Point A, B, C;
+    for (int i = 0; i < n; i++) {
+        for (int j = i + 1; j < n; j++) {
+            for (int k = j + 1; k < n; k++) {
+                double d1 = pow(arr[j].x - arr[i].x, 2) + pow(arr[j].y - arr[i].y, 2);
+                double d2 = pow(arr[k].x - arr[i].x, 2) + pow(arr[k].y - arr[i].y, 2);
+                double d3 = pow(arr[k].x - arr[j].x, 2) + pow(arr[k].y - arr[j].y, 2);
+
+                if (d1 + d2 == d3 || d1 + d3 == d2 || d2 + d3 == d1) {
+                    double S = fabs((arr[i].x * (arr[j].y - arr[k].y) +
+                                        arr[j].x * (arr[k].y - arr[i].y) +
+                                        arr[k].x * (arr[i].y - arr[j].y)) / 2.0);
+
+                    if (S > maxS) {
+                        maxS = S;
+                        A = arr[i];
+                        B = arr[j];
+                        C = arr[k];
+                    }
                 }
             }
         }
     }
+
+    if (maxS == 0) {
+        printf("Khong co tam giac vuong.\n");
+    } else {
+        printf("Tam giac vuong co dien tich lon nhat:\n");
+        printf("Dinh A: (%lf, %lf)\n", A.x, A.y);
+        printf("Dinh B: (%lf, %lf)\n", B.x, B.y);
+        printf("Dinh C: (%lf, %lf)\n", C.x, C.y);
+        printf("Dien tich: %lf\n", maxS);
+    }
 }
 
 int main() {
-    char fileName[50]="input.txt";
-    Diem* arr;
     int n;
-    DocFile(fileName, &arr, &n);
-    Display(arr, n);
-    DemDiem(arr,n);
+    Point *arr;
+    DocFile(&arr, &n);
+    display(arr,n);
+    TimkiemTamgiacVuong_Smax(arr, n);
     return 0;
 }
+

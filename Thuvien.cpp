@@ -34,6 +34,7 @@ void FileInput(TV** arr, int *n) {
         fscanf(f, "%d\n", &(*arr)[i].nam);
         fscanf(f, "%d\n", &(*arr)[i].gia);
     }
+    fclose(f);
 }
 
 void Display(FILE *f,TV* arr, int n) {
