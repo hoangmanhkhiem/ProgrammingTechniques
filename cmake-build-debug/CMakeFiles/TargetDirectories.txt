@@ -1,0 +1,3 @@
+D:/C++Project/KTLTkaka/cmake-build-debug/CMakeFiles/KTLTkaka.dir
+D:/C++Project/KTLTkaka/cmake-build-debug/CMakeFiles/edit_cache.dir
+D:/C++Project/KTLTkaka/cmake-build-debug/CMakeFiles/rebuild_cache.dir
